@@ -1,1 +1,124 @@
-/* You can add global styles to this file, and also import other style files */
+$pale-purple: #E8D7F1;
+$thistle: #eca0d5;
+$pomp: #A167A5;
+$tekhelet: #4A306D;
+$prussian-blue: #0E273C;
+
+* { margin: 0; padding: 0; }
+
+main {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: $pale-purple;
+    color: $prussian-blue;
+    padding: 30px;
+    min-height: 100vh;
+}
+
+button {
+    padding: 10px 15px;
+    border-radius: 5px;
+    outline: 0;
+    box-shadow: change-color($color: $prussian-blue, $alpha: 0.4) 3px 3px 5px;
+    transition: all 0.1s;
+    cursor: pointer;
+    margin: 10px;
+}
+
+button:hover {
+    opacity: 0.95;
+    box-shadow: change-color($color: $prussian-blue, $alpha: 0.5) 1px 1px 5px;
+}
+
+.btn-primary {
+    background-color: $tekhelet;
+    color: #fff;
+    border: $pale-purple 2px solid;
+}
+
+.btn-secondary {
+    background-color: $thistle;
+    color: $prussian-blue;
+    border: $prussian-blue 2px solid;
+}
+
+input {
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid $thistle;
+    background-color: #fff;
+    color: $prussian-blue;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 10px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    margin-left: 10px;
+
+    &::placeholder {
+        color: $pomp;
+        font-style: italic;
+    }
+
+    &:focus {
+        border-color: $tekhelet;
+        box-shadow: 0 0 8px $tekhelet;
+        outline: none;
+    }
+}
+
+.gradient-break {
+    width: 100%;
+    height: 2px;
+    background-image: linear-gradient(to right, $pomp 0%, $pomp 20%, $tekhelet 40%, $tekhelet 60%, $thistle 70%, $thistle 100%);
+    margin: 20px 0;
+    border: none;
+}
+
+.container {
+    background-color: $prussian-blue;
+    color: #fff;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 30px 50px;
+    text-align: center;
+}
+
+.container-title {
+    font-size: xx-large;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  // 4 albums per row
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .card {
+    background-color: $pomp;
+    border: $pomp 3px solid;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    overflow: hidden;
+  }
+  
+  .cover {
+    width: 100%;
+    height: auto;
+  }
+  
+  .details {
+    padding: 10px;
+  }
+  
+  .title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+    color: $pale-purple;
+  }
