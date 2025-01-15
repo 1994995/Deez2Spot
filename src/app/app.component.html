@@ -9,12 +9,13 @@
   <button class="btn-primary" (click)="getDeezerAlbums()">Get Deezer Albums</button>
   <button class="btn-primary" (click)="getDeezerPlaylists()">Get Deezer Playlists</button>
   <button class="btn-primary" (click)="getDeezerArtists()">Get Deezer Artists</button>
+  <button class="btn-secondary" (click)="login()">Login</button>
   <!-- <button class="btn-secondary" (click)="fuckOff()">Fuck off</button> -->
   <div class="gradient-break"></div>
   <div class="container" *ngIf="containerTitle !== ''">
     <div class="container-title">{{dataArray?.length + " " + containerTitle}}</div>
     <div class="grid">
-      <div class="card" *ngFor="let data of dataArray">
+      <div class="card" *ngFor="let data of dataArray" (click)="transferToSpotify(data)" [ngClass]="{'done': data.done}">
         <img [src]="containerTitle === 'Albums' ? data.cover_medium : data.picture_medium" alt="Cover" class="cover"/>
         <div class="details">
           <h3 class="title">{{ containerTitle === 'Artists' ? data.name : data.title }}</h3>

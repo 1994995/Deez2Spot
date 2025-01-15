@@ -27,4 +27,14 @@ export class ApiService {
   getDeezerArtists(deezerUID: string): Observable<any> {
     return this.http.get<any>(this.apiUrl + '/deezer/artists/' + deezerUID);
   }
+
+  login():void {
+    window.location.href = `${this.apiUrl}/login`;
+  }
+
+  transferToSpotify(type: string | undefined, title: string | null, artist: string | null): Observable<any> {
+    const access_token = localStorage.getItem('access_token');
+    // TODO: Add headers for this request (token and information)
+    return this.http.get<any>(this.apiUrl + '/spotify');
+  } 
 }

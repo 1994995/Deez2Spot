@@ -58,6 +58,31 @@ export class AppComponent implements OnInit {
     }
   }
 
+  login(): void {
+    this.apiService.login();
+  }
+
+  transferToSpotify(data: any): void {
+    let type = {
+      'Artists': 'artist',
+      'Albums': 'album',
+      'Playlists': 'playlist'
+    }[this.containerTitle];
+
+    this.apiService.transferToSpotify(type, data.title, data.artist.name).subscribe(response => {
+      this.setAsDone(data);
+    });
+  }
+
+  setAsDone(done: any): void {
+    for (let data of this.dataArray) {
+      if (data === done) {
+        data.done = true;
+        break;
+      }
+    }
+  }
+
   fuckOff(): void {
     this.message = "Fuck off";
   }
