@@ -4,7 +4,10 @@ $pomp: #A167A5;
 $tekhelet: #4A306D;
 $prussian-blue: #0E273C;
 
-* { margin: 0; padding: 0; }
+* {
+    margin: 0;
+    padding: 0;
+}
 
 main {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
@@ -89,36 +92,81 @@ input {
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);  // 4 albums per row
+    grid-template-columns: repeat(4, 1fr); // 4 albums per row
     gap: 20px;
     padding: 20px;
-  }
-  
-  .card {
+}
+
+.card {
     background-color: $pomp;
     border: $pomp 3px solid;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     text-align: center;
     overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      0deg, 
+      transparent, 
+      transparent 60%, 
+      $pale-purple
+    );
+    transform: rotate(-45deg);
+    transition: all 0.7s ease;
+    opacity: 0;
   }
   
-  .cover {
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px $pale-purple;
+  }
+  
+  .card:hover::before {
+    opacity: 1;
+    transform: rotate(-45deg) translateY(100%);
+  }
+
+.cover {
     width: 100%;
     height: auto;
-  }
-  
-  .details {
+}
+
+.details {
     padding: 10px;
-  }
-  
-  .title {
+}
+
+.title {
     font-size: 1.2rem;
     font-weight: bold;
     color: #fff;
-  }
-  
-  .subtitle {
+}
+
+.subtitle {
     font-size: 1rem;
     color: $pale-purple;
-  }
+}
+
+
+.done {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background: #00930091;
+	font-size: 6rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}

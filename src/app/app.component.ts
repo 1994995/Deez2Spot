@@ -83,6 +83,14 @@ export class AppComponent implements OnInit {
     }
   }
 
+  addAll(): void {
+    for (let i = 0; i < this.dataArray.length; i++) {
+      setTimeout(() => {
+        this.transferToSpotify(this.dataArray[i]);
+      }, i * 1000);
+    }
+  }
+
   fuckOff(): void {
     this.message = "Fuck off";
   }

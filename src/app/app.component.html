@@ -14,14 +14,16 @@
   <div class="gradient-break"></div>
   <div class="container" *ngIf="containerTitle !== ''">
     <div class="container-title">{{dataArray?.length + " " + containerTitle}}</div>
+    <button class="btn-secondary" (click)="addAll()">Add All</button>
     <div class="grid">
-      <div class="card" *ngFor="let data of dataArray" (click)="transferToSpotify(data)" [ngClass]="{'done': data.done}">
+      <div class="card" *ngFor="let data of dataArray" (click)="transferToSpotify(data)">
         <img [src]="containerTitle === 'Albums' ? data.cover_medium : data.picture_medium" alt="Cover" class="cover"/>
         <div class="details">
           <h3 class="title">{{ containerTitle === 'Artists' ? data.name : data.title }}</h3>
           <p class="subtitle" *ngIf="containerTitle === 'Albums'">{{data.artist.name}}</p>
           <p class="subtitle" *ngIf="containerTitle === 'Playlists'">{{data.creator.name}}</p>
         </div>
+        <div class="done" *ngIf="data.done">✓</div>
       </div>
     </div>
   </div>

@@ -7,9 +7,11 @@ const spotifyService = require('./spotifyService');
 const randomService = require('./randomService');
 const app = express();
 const port = 3000;
-const client_id = 'ccf6961a08f94dd4a4e5064c3257633f';
-const client_secret = 'f3edc88ff7204e7bb261880224e6510e';
-const redirect_uri = 'http://localhost:3000/callback';
+
+require('dotenv').config();
+const client_id = process.env.CLIENT_ID;
+const client_secret = process.env.CLIENT_SECRET;
+const redirect_uri = process.env.REDIRECT_URI;
 
 app.use(cors());  // Enable CORS
 
@@ -54,7 +56,7 @@ app.get('/api/deezer/artists/:deezerUID', async (req, res) => {
 app.get('/api/login', function(req, res) {
 
   var state = randomService.generateRandomString(16);
-  var scope = 'user-read-private user-read-email';
+  var scope = 'user-library-modify user-library-read user-read-private user-read-email playlist-modify-public playlist-modify-private playlist-read-collaborative playlist-read-private';
 
   res.redirect('https://accounts.spotify.com/authorize?' +
     querystring.stringify({
@@ -114,6 +116,20 @@ app.get('/callback', async (req, res) => {
       message: 'An error occurred while exchanging the authorization code for tokens.'
     });
   }
+});
+
+
+// SPOTIFY
+app.get('/api/spotify', async (req, res) => {
+  const { q, type } = req.query; // Extract the query parameters
+  const accessToken = req.headers.authorization?.split(' ')[1]; // Extract the Bearer token
+  if (!q || !type || !accessToken) {
+    return res.status(400).json({ error: 'Missing required query parameters or access token' });
+  }
+
+  return res.json(spotifyService.saveForUser(q.replace(' ', '%20'), type, accessToken));
+
+  
 });
 
 app.listen(port, () => {

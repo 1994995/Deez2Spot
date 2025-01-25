@@ -6,25 +6,34 @@ module.exports = {
       return { status: 'success', message: 'Authentication method tested successfully' };
     },
 
-    getAlbums: (deezerUID) => {
-        console.log(`GET https://api.deezer.com/user/${deezerUID}/albums?limit=-1`)
-        return axios.get(`https://api.deezer.com/user/${deezerUID}/albums?limit=-1`)
-            .then(response => response.data )
-            .catch(error => { throw error; });
-    },
+    saveForUser: async (q, type, accessToken) => {
+        try {
+            // Make the request to the Spotify API
+            const response = await axios.get(`https://api.spotify.com/v1/search?q=${q}&type=${type}`, {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            });
 
-    getPlaylists: (deezerUID) => {
-        console.log(`GET https://api.deezer.com/user/${deezerUID}/playlists?limit=-1`)
-        return axios.get(`https://api.deezer.com/user/${deezerUID}/playlists?limit=-1`)
-            .then(response => response.data )
-            .catch(error => { throw error; });
-    },
+            const albumID = response.data.albums.items[0].id;
 
-    getArtists: (deezerUID) => {
-        console.log(`GET https://api.deezer.com/user/${deezerUID}/artists?limit=-1`)
-        return axios.get(`https://api.deezer.com/user/${deezerUID}/artists?limit=-1`)
-            .then(response => response.data )
-            .catch(error => { throw error; });
+            const addRequest = await axios.put(
+                `https://api.spotify.com/v1/me/albums?ids=${albumID}`,
+                {}, // Empty body for this PUT request
+                {
+                  headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                    "Content-Type": "application/json",
+                  },
+                }
+              );
+        
+            // Send the Spotify API response back to the client
+            return addRequest;
+          } catch (error) {
+            console.error('Error making request to Spotify API:', error.response?.data || error.message);
+            return { error: 'Failed to fetch data from Spotify API' };
+          }
     }
     
   };
